@@ -1,0 +1,43 @@
+amzon default policy
+
+{
+	"Version": "2012-10-17",
+	"Id": "PutObjPolicy",
+	"Statement": [
+		{
+			"Sid": "DenyObjectsThatAreNotSSEKMS",
+			"Effect": "Deny",
+			"Principal": "*",
+			"Action": "s3:PutObject",
+			"Resource": "arn:aws:s3:::satyamlearning-cicd/*"
+		}
+	]
+}
+
+
+---------------
+fix policy
+=> s3 bucket => In the S3 console, you'll see a list of your S3 buckets.
+Click on the name of the bucket where you're trying to upload artifacts from CodeBuild.
+=>
+Once inside your selected bucket, you will see several tabs like Objects, Properties, Permissions, Metrics, etc.
+Click on the Permissions tab.
+=>
+Edit the Bucket Policy:
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "*"
+            },
+            "Action": [
+                "s3:PutObject",
+                "s3:GetObject"
+            ],
+            "Resource": "arn:aws:s3:::satyamlearning-cicd/*"
+        }
+    ]
+}
